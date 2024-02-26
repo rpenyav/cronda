@@ -1,0 +1,15 @@
+<app-layout
+  ><div>{{ "BANKSTITLE.TITLE" | translate }}</div>
+
+  <div *ngIf="banksTypes.length > 0">
+    <h2>Bancos</h2>
+    <ul>
+      <li *ngFor="let banksType of banksTypes">
+        {{ banksType.name }}
+      </li>
+    </ul>
+  </div>
+  <div *ngIf="banksTypes.length === 0">
+    <p>No se encontraron bancos.</p>
+  </div>
+</app-layout>

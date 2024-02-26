@@ -1,0 +1,15 @@
+<app-layout
+  ><div>{{ "DOMAINSTITLE.TITLE" | translate }}</div>
+
+  <div *ngIf="domainsTypes.length > 0">
+    <h2>Domains</h2>
+    <ul>
+      <li *ngFor="let domainsType of domainsTypes">
+        {{ domainsType.name }}
+      </li>
+    </ul>
+  </div>
+  <div *ngIf="domainsTypes.length === 0">
+    <p>No se encontraron domains.</p>
+  </div>
+</app-layout>

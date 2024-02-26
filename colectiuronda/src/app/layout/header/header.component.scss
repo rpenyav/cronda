@@ -1,0 +1,50 @@
+::ng-deep .small-select {
+  .mat-mdc-select .mat-mdc-select-trigger {
+    height: 26px !important; // Establece la altura deseada aquí
+    padding: 0 !important; // Asegúrate de que el padding interno no afecte la altura
+    line-height: 26px; // Ajusta esto para centrar verticalmente el texto si es necesario
+  }
+
+  .mat-mdc-text-field-wrapper,
+  .mat-mdc-form-field-infix {
+    background-color: transparent;
+    height: 36px !important;
+    border: 0 !important; // Asegúrate de que no hay borde que afecte visualmente
+    padding: 3px !important; // Remueve el padding para que no afecte la altura
+  }
+
+  .mat-mdc-form-field-flex {
+    border: none !important; // Confirma que no hay bordes adicionales
+  }
+
+  .mdc-line-ripple {
+    display: none !important; // Elimina el efecto de underline
+  }
+
+  .mat-option {
+    color: black;
+    background-color: white;
+    padding: 0 !important; // Ajusta el padding de las opciones para que coincida con el estilo deseado
+
+    &:hover {
+      background-color: #eee;
+    }
+  }
+}
+
+.header__min-hei {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 8px;
+  padding-right: 8px;
+  background-color: rgb(224, 224, 224);
+}
+
+.header {
+  h3 {
+    padding-left: 15px;
+    padding-top: 10px;
+    font-size: 30px;
+    font-weight: bold;
+  }
+}

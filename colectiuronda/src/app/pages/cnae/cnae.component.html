@@ -1,0 +1,15 @@
+<app-layout
+  ><div>{{ "CNAETITLE.TITLE" | translate }}</div>
+
+  <div *ngIf="cnaeTypes.length > 0">
+    <h2>Cnae</h2>
+    <ul>
+      <li *ngFor="let cnaeType of cnaeTypes">
+        {{ cnaeType.name }}
+      </li>
+    </ul>
+  </div>
+  <div *ngIf="cnaeTypes.length === 0">
+    <p>No se encontraron cnae.</p>
+  </div>
+</app-layout>

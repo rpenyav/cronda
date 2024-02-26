@@ -1,0 +1,15 @@
+<app-layout
+  ><div>{{ "PAYMEHTODSTITLE.TITLE" | translate }}</div>
+
+  <div *ngIf="payMethodsTypes.length > 0">
+    <h2>payMethods</h2>
+    <ul>
+      <li *ngFor="let payMethodsType of payMethodsTypes">
+        {{ payMethodsType.name }}
+      </li>
+    </ul>
+  </div>
+  <div *ngIf="payMethodsTypes.length === 0">
+    <p>No se encontraron payMethods.</p>
+  </div>
+</app-layout>

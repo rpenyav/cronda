@@ -1,0 +1,84 @@
+{
+    "HOME": {
+        "TITLE": "catal",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "ADDRESSTYPE": {
+        "TITLE": "Tipus d'Adreces",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "BANKSTITLE": {
+        "TITLE": "Bancs",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "CARPETASTITLE": {
+        "TITLE": "Carpetas",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "DOMAINSTITLE": {
+        "TITLE": "Dominis",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "CNAETITLE": {
+        "TITLE": "CNAE",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "DOCUMENTSTITLE": {
+        "TITLE": "Documents",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "PARAMSTITLE": {
+        "TITLE": "Parámetres",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "PROECOTITLE": {
+        "TITLE": "Procediments Econòmics",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "PAYMEHTODSTITLE": {
+        "TITLE": "Mètodes de pagament",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "RELEMPTITLE": {
+        "TITLE": "Relació amb empreses",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "REPLEGALTITLE": {
+        "TITLE": "Representacions Legals",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "MENU": {
+        "DOCUMENTS": "Documents",
+        "DOMINIS": "Dominis",
+        "BANCS": "Bancs",
+        "LOCALIT": "Localitzacions",
+        "CNAE": "CNAE",
+        "COMUNICACIONS": "Comunicacions",
+        "ESTATCIVIL": "Estats Civils",
+        "EMPRESES": "Relació amb Empreses",
+        "PROCEDIMENTS": "Procediments econòmics",
+        "CARPETES": "Carpetes",
+        "REPLEGALS": "Representacions legals",
+        "PARAMETRES": "Parámetres",
+        "METODESPAY": "Mètodes de pagament",
+        "PERSONES": "Personal",
+        "LOPD": "LOPD"
+    },
+    "SUBMENU": {
+        "COUNTRIES": "Països",
+        "PROVINCES": "Provincies",
+        "COMMUNITIES": "Comunitats Autònomes",
+        "TOWNS": "Municipis",
+        "COMARCS": "Comarques",
+        "POSTAL_CODES": "Codis Postals",
+        "POBLATION": "Poblacions",
+        "MODESCOM": "Modes de comunicació",
+        "COMMUNICATIONS": "Comunicacions",
+        "GENERES": "Gèneres",
+        "TIPUSPERSON": "Tipus de persones",
+        "TIPUSPHONE": "Tipus de telèfon",
+        "ORILOPD": "Origens LOPD",
+        "REGLOPD": "Regulacions LOPD",
+        "ADDRESSTYPE": "Tipus d'Adreces"
+    }
+}

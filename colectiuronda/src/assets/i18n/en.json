@@ -1,0 +1,84 @@
+{
+    "HOME": {
+        "TITLE": "Home",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "ADDRESSTYPE": {
+        "TITLE": "Address Types",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "BANKSTITLE": {
+        "TITLE": "Bancs",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "CARPETASTITLE": {
+        "TITLE": "Carpetas",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "DOMAINSTITLE": {
+        "TITLE": "Domains",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "CNAETITLE": {
+        "TITLE": "CNAE",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "DOCUMENTSTITLE": {
+        "TITLE": "Documents",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "PARAMSTITLE": {
+        "TITLE": "Parameters",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "PROECOTITLE": {
+        "TITLE": "Procediments Econòmics",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "PAYMEHTODSTITLE": {
+        "TITLE": "Payment Methodes",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "RELEMPTITLE": {
+        "TITLE": "Relació amb empreses",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "REPLEGALTITLE": {
+        "TITLE": "Representacions Legals",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "MENU": {
+        "DOCUMENTS": "Documents",
+        "DOMINIS": "Domains",
+        "BANCS": "Banks",
+        "LOCALIT": "Locations",
+        "CNAE": "CNAE",
+        "COMUNICACIONS": "Communications",
+        "ESTATCIVIL": "Civil Status",
+        "EMPRESES": "Business Relations",
+        "PROCEDIMENTS": "Economic Procedures",
+        "CARPETES": "Folders",
+        "REPLEGALS": "Legal Representations",
+        "PARAMETRES": "Parameters",
+        "METODESPAY": "Payment Methods",
+        "PERSONES": "Staff",
+        "LOPD": "LOPD"
+    },
+    "SUBMENU": {
+        "COUNTRIES": "Countries",
+        "PROVINCES": "Provinces",
+        "COMMUNITIES": "Autonomous Communities",
+        "TOWNS": "Municipalities",
+        "COMARCS": "Regions",
+        "POSTAL_CODES": "Postal Codes",
+        "POBLATION": "Populations",
+        "MODESCOM": "Communication Modes",
+        "COMMUNICATIONS": "Communications",
+        "GENERES": "Genres",
+        "TIPUSPERSON": "Types of People",
+        "TIPUSPHONE": "Types of Phone",
+        "ORILOPD": "LOPD Origins",
+        "REGLOPD": "LOPD Regulations",
+        "ADDRESSTYPE": "Address Types"
+    }
+}

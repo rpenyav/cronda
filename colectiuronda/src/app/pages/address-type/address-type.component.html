@@ -1,0 +1,15 @@
+<app-layout
+  ><div>{{ "ADDRESSTYPE.TITLE" | translate }}</div>
+
+  <div *ngIf="addressTypes.length > 0">
+    <h2>Address Types</h2>
+    <ul>
+      <li *ngFor="let addressType of addressTypes">
+        {{ addressType.name }}
+      </li>
+    </ul>
+  </div>
+  <div *ngIf="addressTypes.length === 0">
+    <p>No se encontraron address types.</p>
+  </div>
+</app-layout>
