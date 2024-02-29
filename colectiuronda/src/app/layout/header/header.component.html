@@ -19,7 +19,15 @@
       </mat-form-field>
 
       <mat-menu #userMenu="matMenu">
-        <button mat-menu-item (click)="logout()">Logout</button>
+        <button
+          mat-menu-item
+          [routerLink]="'/' + selectedLanguage + '/settings'"
+        >
+          {{ "TXT.settings" | translate }}
+        </button>
+        <button mat-menu-item (click)="logout()">
+          {{ "TXT.logout" | translate }}
+        </button>
       </mat-menu>
 
       <button mat-icon-button [matMenuTriggerFor]="userMenu" class="barbutton">

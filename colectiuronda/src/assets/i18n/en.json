@@ -8,11 +8,11 @@
         "SUBTITLE": "Your translation for the subtitle goes here"
     },
     "BANKSTITLE": {
-        "TITLE": "Bancs",
+        "TITLE": "Banks",
         "SUBTITLE": "Your translation for the subtitle goes here"
     },
     "CARPETASTITLE": {
-        "TITLE": "Carpetas",
+        "TITLE": "Folders",
         "SUBTITLE": "Your translation for the subtitle goes here"
     },
     "DOMAINSTITLE": {
@@ -32,19 +32,23 @@
         "SUBTITLE": "Your translation for the subtitle goes here"
     },
     "PROECOTITLE": {
-        "TITLE": "Procediments Econòmics",
+        "TITLE": "Economic Procedures",
         "SUBTITLE": "Your translation for the subtitle goes here"
     },
     "PAYMEHTODSTITLE": {
-        "TITLE": "Payment Methodes",
+        "TITLE": "Payment Methods",
         "SUBTITLE": "Your translation for the subtitle goes here"
     },
     "RELEMPTITLE": {
-        "TITLE": "Relació amb empreses",
+        "TITLE": "Business Relations",
         "SUBTITLE": "Your translation for the subtitle goes here"
     },
     "REPLEGALTITLE": {
-        "TITLE": "Representacions Legals",
+        "TITLE": "Legal Representations",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
+    "PROVINCESTITLE": {
+        "TITLE": "Provinces",
         "SUBTITLE": "Your translation for the subtitle goes here"
     },
     "MENU": {
@@ -62,7 +66,7 @@
         "PARAMETRES": "Parameters",
         "METODESPAY": "Payment Methods",
         "PERSONES": "Staff",
-        "LOPD": "LOPD"
+        "LOPD": "GDPR (General Data Protection Regulation)"
     },
     "SUBMENU": {
         "COUNTRIES": "Countries",
@@ -77,8 +81,48 @@
         "GENERES": "Genres",
         "TIPUSPERSON": "Types of People",
         "TIPUSPHONE": "Types of Phone",
-        "ORILOPD": "LOPD Origins",
-        "REGLOPD": "LOPD Regulations",
+        "ORILOPD": "GDPR Origins",
+        "REGLOPD": "GDPR Regulations",
         "ADDRESSTYPE": "Address Types"
+    },
+    "TXT": {
+        "HOME": "Inici",
+        "noshantrobat": "Not found",
+        "nombre": "Name",
+        "codigo": "Code",
+        "escribaelnombre": "Enter the name",
+        "filtrar": "Filter by",
+        "provincia_sing": "province",
+        "bank_sing": "bank",
+        "actions": "Actions",
+        "new_registre": "New registre",
+        "settings": "Settings",
+        "logout": "Logout"
+    },
+    "FORM": {
+        "name": "Name",
+        "code": "Code",
+        "campo_obligatorio": "Is required",
+        "added": "Add",
+        "modify": "Modify",
+        "cancel": "Cancel",
+        "ok": "Ok",
+        "close": "Close",
+        "title_swa": "This action delete ",
+        "text_swa": "You won't be able to revert this!",
+        "yes_delete": "Yes, delete it!",
+        "delete_done": "Record deleted",
+        "reg_deleted": "The record has been deleted",
+        "error": "Error",
+        "there_are_problem": "There was a problem deleting the record",
+        "edit_success_title": "Modificar registro",
+        "edit_success_message": "El registro ha sido modificado",
+        "edit_error_title": "Error de modificación",
+        "edit_error_message": "ha habido un error modificando el registro",
+        "create_success_title": "Añadir nuevo registro",
+        "create_success_message": "El registro se ha creado",
+        "create_error_title": "Error añadiendo el registro",
+        "create_error_message": "Ha habido un error creando el registro",
+        "desea_eliminar": "Do you want delete "
     }
 }

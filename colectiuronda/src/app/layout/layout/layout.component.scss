@@ -61,3 +61,14 @@ mat-nav-list {
 .caret-icon {
   padding-right: 42px !important;
 }
+
+mat-nav-list .menu-selected,
+mat-nav-list .menu-selected a {
+  background-color: #979797; /* Color de fondo para el ítem seleccionado */
+}
+
+/* Aumentar la especificidad para el ítem seleccionado */
+mat-nav-list .menu-selected .ng-star-inserted,
+mat-nav-list .menu-selected .ng-star-inserted a {
+  color: #fffdfd;
+}

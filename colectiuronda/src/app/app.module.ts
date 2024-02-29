@@ -17,7 +17,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutComponent } from './layout/layout/layout.component';
 import { LoginComponent } from './auth/login/login.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FooterComponent } from './layout/footer/footer.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { AddressTypeComponent } from './pages/address-type/address-type.component';
@@ -31,6 +31,14 @@ import { ParametersComponent } from './pages/parameters/parameters.component';
 import { ProEcoComponent } from './pages/pro-eco/pro-eco.component';
 import { RelEmpresasComponent } from './pages/rel-empresas/rel-empresas.component';
 import { RepLegalsComponent } from './pages/rep-legals/rep-legals.component';
+import { ProvincesComponent } from './pages/provinces/provinces.component';
+import { PaginatorComponent } from './shared/paginator/paginator.component';
+import { LoaderComponent } from './shared/loader/loader.component';
+import { FilterComponent } from './shared/filter/filter.component';
+import { DynamicDetailComponent } from './shared/dynamic-detail/dynamic-detail.component';
+import { ProvincesDetailComponent } from './pages/provinces/provinces-detail.component';
+import { BanksDetailComponent } from './pages/banks/banks-detail.component';
+import { SettingsComponent } from './pages/settings/settings.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -63,6 +71,14 @@ function initApp() {
     ProEcoComponent,
     RelEmpresasComponent,
     RepLegalsComponent,
+    ProvincesComponent,
+    PaginatorComponent,
+    LoaderComponent,
+    FilterComponent,
+    DynamicDetailComponent,
+    ProvincesDetailComponent,
+    BanksDetailComponent,
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,
@@ -84,6 +100,7 @@ function initApp() {
     MatMenuModule,
     MatListModule,
     MatSidenavModule,
+    ReactiveFormsModule,
   ],
   providers: [
     CookieService,

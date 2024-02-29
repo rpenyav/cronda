@@ -1,27 +1,51 @@
-# Colectiuronda
+# Desplegament d'Aplicació Angular en Servidor Remot amb Docker i Nginx
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.12.
+Aquest document explica com desplegar una aplicació Angular en un servidor remot utilitzant Docker i Nginx com a servidor web.
 
-## Development server
+## Requisits
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- Docker instal·lat tant en el teu entorn de desenvolupament com en el servidor remot.
+- Accés al servidor remot.
+- Un domini apuntant al teu servidor remot.
+- Una aplicació Angular preparada per ser desplegada.
 
-## Code scaffolding
+## Pas a Pas
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### 1. Preparar l'Arxiu `Dockerfile`
 
-## Build
+Aquest arxiu ja existeix al arrel del projecte
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### 2. Preparar l'Arxiu `nginx.conf`
 
-## Running unit tests
+Aquest arxiu ja existeix al arrel del projecte
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### 3. Construir i Pujar la Imatge Docker
 
-## Running end-to-end tests
+Construeix la imatge Docker de la teva aplicació:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+```bash
+docker build -t nom-de-la-teva-imatge .
+```
 
-## Further help
+Puja la imatge a un registre de contenedors (per exemple, Docker Hub):
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```bash
+docker login
+docker tag nom-de-la-teva-imatge usuari/nom-de-la-teva-imatge:latest
+docker push usuari/nom-de-la-teva-imatge:latest
+```
+
+### 4. Desplegar en el Servidor Remot
+
+Connecta't al teu servidor remot i executa:
+
+```bash
+docker pull usuari/nom-de-la-teva-imatge:latest
+docker run -d -p 80:80 usuari/nom-de-la-teva-imatge:latest
+```
+
+Això iniciarà el teu contenidor Docker i servirà la teva aplicació Angular a través de Nginx al port 80.
+
+## Conclusió
+
+Ara la aplicació Angular hauria d'estar accessible des del domini que apunta al teu servidor. Recorda configurar el teu DNS per apuntar al servidor correctament i, si és necessari, configura HTTPS utilitzant certbot o una solució similar per a una connexió segura.

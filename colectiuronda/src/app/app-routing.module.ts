@@ -16,9 +16,13 @@ import { RepLegalsComponent } from './pages/rep-legals/rep-legals.component';
 import { RelEmpresasComponent } from './pages/rel-empresas/rel-empresas.component';
 import { ProEcoComponent } from './pages/pro-eco/pro-eco.component';
 import { ParametersComponent } from './pages/parameters/parameters.component';
+import { ProvincesComponent } from './pages/provinces/provinces.component';
+import { DynamicDetailComponent } from './shared/dynamic-detail/dynamic-detail.component';
+import { SettingsComponent } from './pages/settings/settings.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/ca/home', pathMatch: 'full' },
+
   {
     path: ':lang',
     children: [
@@ -90,6 +94,21 @@ const routes: Routes = [
       {
         path: 'rep-legal',
         component: RepLegalsComponent,
+        canActivate: [canActivate],
+      },
+      {
+        path: 'locations/provinces',
+        component: ProvincesComponent,
+        canActivate: [canActivate],
+      },
+      {
+        path: ':category/:type/:id',
+        component: DynamicDetailComponent,
+        canActivate: [canActivate],
+      },
+      {
+        path: 'settings',
+        component: SettingsComponent,
         canActivate: [canActivate],
       },
     ],

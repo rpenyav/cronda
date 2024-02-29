@@ -1,6 +1,6 @@
 <mat-drawer-container #drw class="layout-container" autosize>
-  <mat-drawer #drawer mode="side" disableClose="true" opened="true"
-    ><div class="scroll-area">
+  <mat-drawer #drawer mode="side" disableClose="true" opened="true">
+    <div class="scroll-area">
       <button
         mat-mini-fab
         (click)="toggleSidebar()"
@@ -15,6 +15,7 @@
           <div
             *ngIf="item.value.children"
             (click)="!isExpanded && toggleSidebar(); toggleSubMenu(item)"
+            [ngClass]="{ 'menu-selected': selectedMenuItem === item.key }"
             class="d-flex justify-content-between align-items-center sidebar__height-item icon-nomaterial"
           >
             <div class="d-flex align-items-center">
@@ -27,15 +28,17 @@
                 {{ item.value.text | translate }}
               </h5>
             </div>
-            <mat-icon class="caret-icon" *ngIf="isExpanded">{{
-              item.value.isOpen ? "expand_less" : "expand_more"
-            }}</mat-icon>
+            <mat-icon class="caret-icon" *ngIf="isExpanded">
+              {{ item.value.isOpen ? "expand_less" : "expand_more" }}
+            </mat-icon>
           </div>
 
           <a
             *ngIf="!item.value.children"
             mat-list-item
             [routerLink]="['/' + getLangFromStorage() + item.value.url]"
+            (click)="selectMenuItem(item.key)"
+            [ngClass]="{ 'menu-selected': selectedMenuItem === item.key }"
           >
             <div class="d-flex justify-content-start sidebar__height-item">
               <img
@@ -48,6 +51,7 @@
               </h5>
             </div>
           </a>
+
           <mat-nav-list
             *ngIf="item.value.children && item.value.isOpen"
             class="sub-menu"
@@ -56,6 +60,8 @@
               *ngFor="let child of item.value.children"
               mat-list-item
               [routerLink]="['/' + getLangFromStorage() + child.url]"
+              (click)="child.url && selectMenuItem(child.url)"
+              [ngClass]="{ 'menu-selected': selectedMenuItem === child.url }"
             >
               <div class="d-flex justify-content-start sidebar__height-item">
                 <img

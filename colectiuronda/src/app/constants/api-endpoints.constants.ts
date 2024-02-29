@@ -12,4 +12,5 @@ export const API_ENDPOINTS = {
   PAY_METHODS: `${environment.apiBaseUrl}/domains`,
   PRO_ECO: `${environment.apiBaseUrl}/domains`,
   REP_LEGAL_ENDPOINT: `${environment.apiBaseUrl}/domains`,
+  PROVINCIES_ENDPOINT: `${environment.apiBaseUrl}/provinces/paged?page=0&pagesize=10`,
 };

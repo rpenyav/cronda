@@ -47,6 +47,10 @@
         "TITLE": "Representaciones Legales",
         "SUBTITLE": "Your translation for the subtitle goes here"
     },
+    "PROVINCESTITLE": {
+        "TITLE": "Provincias",
+        "SUBTITLE": "Your translation for the subtitle goes here"
+    },
     "MENU": {
         "DOCUMENTS": "Documentos",
         "DOMINIS": "Dominios",
@@ -80,5 +84,45 @@
         "ORILOPD": "Orígenes LOPD",
         "REGLOPD": "Regulaciones LOPD",
         "ADDRESSTYPE": "Tipos de Direcciones"
+    },
+    "TXT": {
+        "HOME": "Inici",
+        "noshantrobat": "No se han hallado",
+        "nombre": "Nombre",
+        "codigo": "Código",
+        "escribaelnombre": "Escriba el nombre de el/la",
+        "filtrar": "Filtrar",
+        "provincia_sing": "provincia",
+        "bank_sing": "banco",
+        "actions": "Acciones",
+        "new_registre": "Nuevo registro",
+        "settings": "Configuración",
+        "logout": "Logout"
+    },
+    "FORM": {
+        "name": "Nombre",
+        "code": "Código",
+        "added": "Añadir",
+        "campo_obligatorio": "Es un campo obligatorio",
+        "close": "Cerrar",
+        "modify": "Modificar",
+        "ok": "Ok",
+        "cancel": "Cancelar",
+        "title_swa": "Esta acción borrará ",
+        "text_swa": "¡No podrás revertir esto!",
+        "yes_delete": "Sí, bórralo!",
+        "delete_done": "Registro eliminado",
+        "reg_deleted": "El registro ha sido eliminado",
+        "error": "Error",
+        "there_are_problem": "Ha habido un problme eliminando el registro",
+        "edit_success_title": "Modificar registro",
+        "edit_success_message": "El registro ha sido modificado",
+        "edit_error_title": "Error de modificación",
+        "edit_error_message": "ha habido un error modificando el registro",
+        "create_success_title": "Añadir nuevo registro",
+        "create_success_message": "El registro se ha creado",
+        "create_error_title": "Error añadiendo el registro",
+        "create_error_message": "Ha habido un error creando el registro",
+        "desea_eliminar": "Se dipone a borrar "
     }
 }
