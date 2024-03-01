@@ -3,10 +3,21 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { delay, tap, catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import * as Papa from 'papaparse';
 import { API_ENDPOINTS } from '../../constants/api-endpoints.constants';
 import { getAuthToken } from 'src/utils/getToken';
 import { MOCK_BANKS } from 'src/app/mock/banks-mock';
-import { PaginatedResponse, Bank } from 'src/app/interfaces/banks';
+import {
+  PaginatedResponse,
+  Bank,
+  NewBanksPayload,
+  NewBank,
+} from 'src/app/interfaces/banks';
+
+interface CsvBankRecord {
+  'CÓDIGO DE SUPERVISOR ': string;
+  NOMBRE: string;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -33,20 +44,24 @@ export class BanksTypeService {
    */
   getBanksTypes(
     pageNumber: number = 0,
-    pageSize: number = 2
+    pageSize: number = 999
   ): Observable<PaginatedResponse> {
     const params = {
       pageNumber: pageNumber.toString(),
       pageSize: pageSize.toString(),
     };
+    //TODO dinamizar el sort by
     return this.http
-      .get<PaginatedResponse>(`${this.ENDPOINT}/paged`, {
-        headers: this.getHeaders(),
-        params,
-      })
+      .get<PaginatedResponse>(
+        `${this.ENDPOINT}/paged?page=${params.pageNumber}&pagesize=${params.pageSize}&sortField=name&sortType=ASC`,
+        {
+          headers: this.getHeaders(),
+          params,
+        }
+      )
       .pipe(
         tap((response) =>
-          console.log('Resposta de la sol·licitud GET:', response)
+          console.log('Resposta de la sol·licitud GET:', params)
         ),
         catchError((error) => {
           console.error('Error ocorregut en geBanksTypes:', error);
@@ -92,6 +107,68 @@ export class BanksTypeService {
         catchError((error) => {
           console.error('Error ocorregut en createBanksType:', error);
           return throwError(() => new Error('Error en createBanksType'));
+        })
+      );
+  }
+
+  /**
+   * Función para convertir CSV a JSON
+   * @param file
+   * @returns
+   */
+
+  uploadFileTOJSON(file: File): Observable<any> {
+    return new Observable((observer) => {
+      Papa.parse(file, {
+        header: true,
+        skipEmptyLines: true,
+        complete: (results) => {
+          const data = results.data as CsvBankRecord[];
+          const transformedData: NewBank[] = data.map((item) => ({
+            code: item['CÓDIGO DE SUPERVISOR ']
+              ? item['CÓDIGO DE SUPERVISOR '].trim()
+              : '',
+            name: item['NOMBRE'] ? item['NOMBRE'].trim() : '',
+            countryCode: 'ES', // Asumiendo que el código de país es siempre "ES"
+          }));
+
+          console.log('Datos transformados:', transformedData);
+
+          // Crea el payload utilizando la interfaz NewBanksPayload
+          const payload: NewBanksPayload = {
+            newBanks: transformedData,
+          };
+
+          // Ahora puedes enviar `payload` al servidor
+          this.createMassiveBanksType(payload).subscribe({
+            next: (response) => {
+              observer.next(response);
+              observer.complete();
+            },
+            error: (error) => observer.error(error),
+          });
+        },
+        error: (error) => observer.error(error),
+      });
+    });
+  }
+
+  /**
+   * Crea un nou tipus de registre MASSIU.
+   * @param registreType El tipus de registre a crear.
+   * @returns Un Observable del nou tipus de registre creat.
+   */
+  createMassiveBanksType(payload: NewBanksPayload): Observable<any> {
+    const url = `${this.ENDPOINT}/update`; // Asegúrate de que esta URL sea correcta para tu API
+
+    return this.http
+      .put(url, payload, {
+        headers: this.getHeaders(),
+      })
+      .pipe(
+        catchError((error) => {
+          console.error('Error en createMassiveBanksType', error);
+          throw new Error('Error en la actualización de bancos');
         })
       );
   }

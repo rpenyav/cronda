@@ -7,6 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { showCustomAlert } from 'src/utils/showCustomAlert';
 import { Router } from '@angular/router';
 import { MENU_ITEMS } from 'src/app/constants/menu.constants';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-banks',
@@ -32,13 +33,20 @@ export class BanksComponent implements OnInit {
   orderDirection: string = 'asc';
   orderBy: string = 'name';
   icono!: string;
+  @ViewChild('uploadModal')
+  uploadModal!: TemplateRef<any>;
+  selectedFile: File | null = null;
+
+  isValidFile: boolean = true;
+  errorFileMessage: string = '';
 
   constructor(
     private banksTypeService: BanksTypeService,
     private modalService: NgbModal,
     private fb: FormBuilder,
     private txt: TranslateService,
-    private router: Router
+    private router: Router,
+    private http: HttpClient
   ) {}
 
   ngOnInit(): void {
@@ -272,5 +280,49 @@ export class BanksComponent implements OnInit {
         // Proceder con la eliminación...
       }
     });
+  }
+
+  //-----------------------------------------------------------------
+  // PUJADA MASSIVA de bancs
+  //-----------------------------------------------------------------
+  openUploadModal() {
+    this.modalService.open(this.uploadModal);
+  }
+
+  onFileSelect(event: Event): void {
+    const element = event.currentTarget as HTMLInputElement;
+    let fileList: FileList | null = element.files;
+
+    if (fileList && fileList.length > 0) {
+      const file = fileList[0];
+      const fileExtension = file.name.split('.').pop();
+      if (fileExtension?.toLowerCase() === 'csv') {
+        this.selectedFile = file; // Asignación directa del archivo
+        this.isValidFile = true; // El archivo es válido
+      } else {
+        this.selectedFile = null;
+        this.isValidFile = false; // El archivo no es válido
+        this.errorFileMessage = 'Por favor, selecciona un archivo CSV.'; // Mensaje de error
+      }
+    }
+  }
+
+  uploadFile() {
+    if (this.selectedFile) {
+      // Directamente pasamos selectedFile al servicio, ya que es un File
+      this.banksTypeService.uploadFileTOJSON(this.selectedFile).subscribe({
+        next: (response) => {
+          console.log('Bancos actualizados con éxito', response);
+          // Aquí puedes añadir lógica adicional para manejar una respuesta exitosa, como cerrar un modal o mostrar un mensaje al usuario.
+        },
+        error: (error) => {
+          console.error('Error al actualizar bancos', error);
+          // Aquí puedes manejar errores, como mostrar un mensaje de error al usuario.
+        },
+      });
+    } else {
+      console.log('No file selected');
+      // Opcional: manejar el caso en que no se seleccione ningún archivo.
+    }
   }
 }

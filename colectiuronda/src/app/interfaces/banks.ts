@@ -27,3 +27,13 @@ export interface PaginatedResponse {
   isLast: boolean;
   list: Bank[];
 }
+
+export interface NewBank {
+  code: string;
+  name: string;
+  countryCode: string;
+}
+
+export interface NewBanksPayload {
+  newBanks: NewBank[];
+}
