@@ -34,14 +34,22 @@
         <div class="col-12 mt-3 mb-2">
           <div class="d-flex justify-content-between">
             <div>
-              <app-filter
+              <!-- Supongamos que esto está en tu AppComponent o cualquier otro componente -->
+              <app-filter-input
+                [endpoint]="banksTypeService.endpoint"
+                [searchField]="'name'"
+                (selected)="onSuggestionSelected($event)"
+              >
+              </app-filter-input>
+
+              <!-- <app-filter
                 [placeholder]="
                   ('TXT.escribaelnombre' | translate) +
                   ' ' +
                   ('TXT.bank_sing' | translate)
                 "
                 (filterChange)="filterRegisters($event)"
-              ></app-filter>
+              ></app-filter> -->
             </div>
             <div className="d-flex justify-content-end">
               <button
@@ -194,6 +202,12 @@
       </button>
     </div>
     <div class="modal-body">
+      <div *ngIf="isLoadingCSV" class="text-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Cargando...</span>
+        </div>
+      </div>
+
       <input type="file" (change)="onFileSelect($event)" accept=".csv" />
 
       <!-- Mensaje de error si el archivo no es CSV -->
@@ -230,6 +244,11 @@
         <p>{{ "TXT.new_registre" | translate }}</p>
         <!--FORMULARI AFEGIR -->
         <form [formGroup]="formForm" (ngSubmit)="onSubmitAdd()">
+          <input type="text" id="swift" formControlName="swift" />
+          <div formGroupName="country">
+            <!-- Asegúrate de que el campo id del país esté enlazado correctamente -->
+            <input type="text" formControlName="id" />
+          </div>
           <div class="mb-3">
             <label for="name" class="form-label">{{
               "FORM.name" | translate
@@ -290,6 +309,8 @@
       <ng-container *ngIf="currentAction === 'edit'">
         <!--FORMULARI MODIFICAR -->
         <form [formGroup]="formForm" (ngSubmit)="onSubmit()">
+          <input type="hidden" id="id" formControlName="id" />
+
           <div class="mb-3">
             <label for="name" class="form-label">
               {{ "FORM.name" | translate }}</label

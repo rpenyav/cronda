@@ -3,7 +3,7 @@ export interface Bank {
   valid: boolean;
   userModId: string;
   dateMod: string;
-  code: string;
+  code: number;
   swift: string;
   name: string;
   country: Country;

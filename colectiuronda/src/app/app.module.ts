@@ -39,6 +39,7 @@ import { DynamicDetailComponent } from './shared/dynamic-detail/dynamic-detail.c
 import { ProvincesDetailComponent } from './pages/provinces/provinces-detail.component';
 import { BanksDetailComponent } from './pages/banks/banks-detail.component';
 import { SettingsComponent } from './pages/settings/settings.component';
+import { FilterInputComponent } from './shared/filter-input/filter-input.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -79,6 +80,7 @@ function initApp() {
     ProvincesDetailComponent,
     BanksDetailComponent,
     SettingsComponent,
+    FilterInputComponent,
   ],
   imports: [
     BrowserModule,

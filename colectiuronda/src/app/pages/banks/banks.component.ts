@@ -16,7 +16,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class BanksComponent implements OnInit {
   banksData: Bank[] = [];
-  allBanksData: Bank[] = []; // Almacenará todas para el filtrado
+  allBanksData: Bank[] = [];
   filteredRegistersData: Bank[] = [];
   pageNumber: number = 0;
   pageSize: number = 10;
@@ -24,6 +24,7 @@ export class BanksComponent implements OnInit {
   allDatAll: Bank[] = []; //muestra todo los regitros para e filtrado
   totalElements: number = 0;
   loading: boolean = true;
+  isLoadingCSV: boolean = false;
   filterValue: string = '';
   @ViewChild('modalContent') modalContent!: TemplateRef<any>;
   currentAction!: string;
@@ -41,7 +42,7 @@ export class BanksComponent implements OnInit {
   errorFileMessage: string = '';
 
   constructor(
-    private banksTypeService: BanksTypeService,
+    public banksTypeService: BanksTypeService,
     private modalService: NgbModal,
     private fb: FormBuilder,
     private txt: TranslateService,
@@ -72,17 +73,15 @@ export class BanksComponent implements OnInit {
     this.currentAction = action;
     this.selectedRegister = register;
 
-    // Configura el contenido de la modal según la acción
     if (action === 'edit') {
       this.modalTitle = this.txt.instant('FORM.edit_province');
-      // Carga los datos del registro en el formulario para la edición
       this.formForm.patchValue({
+        id: this.selectedRegister.id,
         name: this.selectedRegister.name,
         code: this.selectedRegister.code,
       });
     } else if (action === 'add') {
       this.modalTitle = this.txt.instant('FORM.new_record');
-      // Resetea el formulario para asegurarse de que está limpio para un nuevo registro
       this.formForm.reset();
     }
 
@@ -100,7 +99,6 @@ export class BanksComponent implements OnInit {
   loadAllRegisters(): void {
     this.banksTypeService.getBanksTypes(undefined, undefined).subscribe({
       next: (data: PaginatedResponse) => {
-        console.log(data.list);
         this.allBanksData = data.list;
       },
       error: (error) => console.error(error),
@@ -114,7 +112,7 @@ export class BanksComponent implements OnInit {
         next: (data: PaginatedResponse) => {
           this.banksData = data.list;
           this.allDatAll = data.allData;
-          console.log(this.allDatAll);
+
           this.filteredRegistersData = [...this.banksData];
           this.totalPages = data.totalPages;
           this.totalElements = data.totalElements;
@@ -134,6 +132,14 @@ export class BanksComponent implements OnInit {
         register.name.toLowerCase().includes(this.filterValue.toLowerCase())
       );
     }
+  }
+
+  onSuggestionSelected(suggestion: any): void {
+    //TODO Aquí es mostrará la resposta del filtre, un cop la rebem mostrarem els resultats
+
+    console.log('Sugerencia seleccionada:', suggestion);
+    // Aquí puedes manejar la sugerencia seleccionada,
+    //por ejemplo, navegando a otro componente o mostrando detalles
   }
 
   onPageChange(pageNumber: number): void {
@@ -179,16 +185,26 @@ export class BanksComponent implements OnInit {
   // ---------------------------------------------------------------------------
 
   formfields(): void {
-    //aqui debemos añadir los campos que deben ser validados en los formularios de añadir y editar
     this.formForm = this.fb.group({
+      id: [''],
       name: ['', [Validators.required]],
       code: ['', [Validators.required]],
+      swift: [''],
+      country: this.fb.group({
+        id: [1, [Validators.pattern(/^\d+$/)]],
+      }),
     });
   }
 
   onSubmitAdd(): void {
     if (this.formForm.valid) {
-      this.create(this.formForm.value);
+      const formData = this.formForm.value;
+      formData.code = parseInt(formData.code, 10);
+      if (!formData.country.id) {
+        formData.country.id = 1;
+      }
+
+      this.create(formData);
     } else {
       console.log('El formulario no es válido.');
     }
@@ -205,14 +221,18 @@ export class BanksComponent implements OnInit {
   // ---------------------------------------------------------------------------
 
   create(bankData: any) {
+    console.log('Enviando datos al servidor:', bankData);
     this.banksTypeService.createBanksType(bankData).subscribe({
       next: (response) => {
+        console.log('Respuesta del servidor:', response);
         showCustomAlert(this.txt, {
           titleKey: 'FORM.create_success_title',
           textKey: 'FORM.create_success_message',
           icon: 'success',
           confirmButtonTextKey: 'FORM.ok',
         });
+        this.modalService.dismissAll();
+        this.getRegisters();
       },
       error: (error) => {
         console.error('Error al crear el registro:', error);
@@ -222,6 +242,7 @@ export class BanksComponent implements OnInit {
           icon: 'error',
           confirmButtonTextKey: 'FORM.ok',
         });
+        // Asegúrate de manejar los errores específicos según el tipo o código de error.
       },
     });
   }
@@ -234,7 +255,6 @@ export class BanksComponent implements OnInit {
    */
   viewDetails(bankId: string | number) {
     const currentLang = this.getLangFromStorage();
-
     this.router.navigate(['/' + currentLang + '/_/banks', bankId]);
   }
 
@@ -243,6 +263,8 @@ export class BanksComponent implements OnInit {
    * @param bank
    */
   edit(bank: Bank) {
+    console.log('bank', bank);
+
     this.banksTypeService.updateBanksType(bank.id, bank).subscribe({
       next: (response) => {
         showCustomAlert(this.txt, {
@@ -251,6 +273,8 @@ export class BanksComponent implements OnInit {
           icon: 'success',
           confirmButtonTextKey: 'FORM.modify',
         });
+        this.modalService.dismissAll();
+        this.getRegisters();
       },
       error: (error) => {
         console.error('Error al editar el registro:', error);
@@ -268,7 +292,7 @@ export class BanksComponent implements OnInit {
     const titleWithName = `${this.txt.instant('FORM.desea_eliminar')} "${
       bank.name
     }"?`;
-
+    console.log('BANK DELETE', bank);
     showCustomAlert(this.txt, {
       titleKey: 'FORM.title_swa',
       textKey: 'FORM.text_swa',
@@ -277,7 +301,15 @@ export class BanksComponent implements OnInit {
       customTitle: titleWithName,
     }).then((result) => {
       if (result.isConfirmed) {
-        // Proceder con la eliminación...
+        this.banksTypeService.deleteBanksType(bank.id).subscribe({
+          next: (response) => {
+            console.log('Respuesta de la solicitud DELETE:', response);
+            this.getRegisters();
+          },
+          error: (error) => {
+            console.error('Error ocurrido en deleteBanksType:', error);
+          },
+        });
       }
     });
   }
@@ -297,32 +329,37 @@ export class BanksComponent implements OnInit {
       const file = fileList[0];
       const fileExtension = file.name.split('.').pop();
       if (fileExtension?.toLowerCase() === 'csv') {
-        this.selectedFile = file; // Asignación directa del archivo
-        this.isValidFile = true; // El archivo es válido
+        this.selectedFile = file;
+        this.isValidFile = true;
       } else {
         this.selectedFile = null;
-        this.isValidFile = false; // El archivo no es válido
-        this.errorFileMessage = 'Por favor, selecciona un archivo CSV.'; // Mensaje de error
+        this.isValidFile = false;
+        this.errorFileMessage = 'Por favor, selecciona un archivo CSV.';
       }
     }
   }
 
   uploadFile() {
     if (this.selectedFile) {
-      // Directamente pasamos selectedFile al servicio, ya que es un File
-      this.banksTypeService.uploadFileTOJSON(this.selectedFile).subscribe({
+      this.isLoadingCSV = true;
+
+      this.banksTypeService.uploadFileToServer(this.selectedFile).subscribe({
         next: (response) => {
-          console.log('Bancos actualizados con éxito', response);
-          // Aquí puedes añadir lógica adicional para manejar una respuesta exitosa, como cerrar un modal o mostrar un mensaje al usuario.
+          console.log('Archivo CSV procesado con éxito', response);
+          this.isLoadingCSV = false;
+          this.modalService.dismissAll();
+
+          this.loadAllRegisters();
+          // llamar a getRegisters si solo necesito recargar la página actual
+          // this.getRegisters();
         },
         error: (error) => {
-          console.error('Error al actualizar bancos', error);
-          // Aquí puedes manejar errores, como mostrar un mensaje de error al usuario.
+          console.error('Error al procesar el archivo CSV', error);
+          this.isLoadingCSV = false;
         },
       });
     } else {
       console.log('No file selected');
-      // Opcional: manejar el caso en que no se seleccione ningún archivo.
     }
   }
 }
