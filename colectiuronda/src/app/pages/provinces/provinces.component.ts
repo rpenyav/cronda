@@ -197,6 +197,7 @@ export class ProvincesComponent implements OnInit {
   create(provinceData: any) {
     this.provincesTypeService.createProvincesType(provinceData).subscribe({
       next: (response) => {
+        console.log(response);
         showCustomAlert(this.txt, {
           titleKey: 'FORM.create_success_title',
           textKey: 'FORM.create_success_message',
@@ -240,6 +241,7 @@ export class ProvincesComponent implements OnInit {
       .updateProvincesType(province.id, province)
       .subscribe({
         next: (response) => {
+          console.log(response);
           showCustomAlert(this.txt, {
             titleKey: 'FORM.edit_success_title',
             textKey: 'FORM.edit_success_message',

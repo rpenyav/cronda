@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Bank } from 'src/app/interfaces/banks';
-import { BanksTypeService } from './banks.service';
+import { GeneralService } from 'src/app/services/general.service';
+import { API_ENDPOINTS } from 'src/app/constants/api-endpoints.constants';
 
 @Component({
   selector: 'app-banks-detail',
@@ -9,13 +10,14 @@ import { BanksTypeService } from './banks.service';
   styleUrls: ['./banks-detail.component.scss'],
 })
 export class BanksDetailComponent implements OnInit {
+  private ENDPOINT = API_ENDPOINTS.BANKS_ENDPOINT;
   id: string | null = null;
   bankDetail: Bank | null = null;
   loading: boolean = true;
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private banksTypeService: BanksTypeService
+    private generalService: GeneralService
   ) {}
 
   ngOnInit(): void {
@@ -26,19 +28,21 @@ export class BanksDetailComponent implements OnInit {
   loadBankDetail(): void {
     const idNum = Number(this.id);
     if (!isNaN(idNum)) {
-      this.banksTypeService.getBankTypeById(idNum).subscribe({
-        next: (bank: Bank | null) => {
-          this.bankDetail = bank;
-          this.loading = false;
-        },
-        error: (error: any) => {
-          console.error('Error al recuperar el detalle del registro:', error);
-          this.loading = false;
-        },
-        complete: () => {
-          console.log('data loaded');
-        },
-      });
+      this.generalService
+        .getRegisterTypeById<Bank>(this.ENDPOINT, idNum)
+        .subscribe({
+          next: (bank: Bank | null) => {
+            this.bankDetail = bank;
+            this.loading = false;
+          },
+          error: (error: any) => {
+            console.error('Error al recuperar el detalle del registro:', error);
+            this.loading = false;
+          },
+          complete: () => {
+            console.log('data loaded');
+          },
+        });
     } else {
       this.loading = false;
     }

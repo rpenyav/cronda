@@ -1,17 +1,9 @@
 import { inject } from '@angular/core';
-import {
-  CanActivateFn,
-  Router,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-} from '@angular/router';
+import { CanActivateFn, Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
 import { map, take } from 'rxjs/operators';
 
-export const canActivate: CanActivateFn = (
-  next: ActivatedRouteSnapshot,
-  state: RouterStateSnapshot
-) => {
+export const canActivate: CanActivateFn = () => {
   // Utiliza inject para obtener las instancias de los servicios necesarios.
   const authService = inject(AuthService);
   const router = inject(Router);

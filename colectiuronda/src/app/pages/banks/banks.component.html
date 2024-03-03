@@ -34,22 +34,12 @@
         <div class="col-12 mt-3 mb-2">
           <div class="d-flex justify-content-between">
             <div>
-              <!-- Supongamos que esto está en tu AppComponent o cualquier otro componente -->
               <app-filter-input
-                [endpoint]="banksTypeService.endpoint"
+                [endpoint]="ENDPOINT"
                 [searchField]="'name'"
                 (selected)="onSuggestionSelected($event)"
               >
               </app-filter-input>
-
-              <!-- <app-filter
-                [placeholder]="
-                  ('TXT.escribaelnombre' | translate) +
-                  ' ' +
-                  ('TXT.bank_sing' | translate)
-                "
-                (filterChange)="filterRegisters($event)"
-              ></app-filter> -->
             </div>
             <div className="d-flex justify-content-end">
               <button
@@ -74,7 +64,7 @@
 
       <div class="row ms-5 me-5">
         <div class="col-12">
-          <table class="table">
+          <table class="table" aria-describedby="bancs taula">
             <thead>
               <tr>
                 <th class="taula" style="width: 10%" (click)="toggleSort('id')">
@@ -137,7 +127,6 @@
                 <td>{{ register.name }}</td>
                 <td>{{ register.code }}</td>
                 <td>
-                  <!-- Botones de Acción -->
                   <div class="button-container">
                     <button
                       type="button"
@@ -187,7 +176,6 @@
     </div>
   </div>
 
-  <!-- MODAL FILE CSV -->
   <!-- MODAL FILE CSV -->
   <ng-template #uploadModal let-modal>
     <div class="modal-header">
@@ -243,129 +231,24 @@
       <ng-container *ngIf="currentAction === 'add'">
         <p>{{ "TXT.new_registre" | translate }}</p>
         <!--FORMULARI AFEGIR -->
-        <form [formGroup]="formForm" (ngSubmit)="onSubmitAdd()">
-          <input type="text" id="swift" formControlName="swift" />
-          <div formGroupName="country">
-            <!-- Asegúrate de que el campo id del país esté enlazado correctamente -->
-            <input type="text" formControlName="id" />
-          </div>
-          <div class="mb-3">
-            <label for="name" class="form-label">{{
-              "FORM.name" | translate
-            }}</label>
-            <input
-              type="text"
-              class="form-control"
-              id="name"
-              formControlName="name"
-              [placeholder]="'FORM.name' | translate"
-            />
-            <div
-              *ngIf="
-                formForm.controls['name'].invalid &&
-                formForm.controls['name'].touched
-              "
-              class="text-danger"
-            >
-              {{ "FORM.campo_obligatorio" | translate }}
-            </div>
-          </div>
-
-          <div class="mb-3">
-            <label for="name" class="form-label">{{
-              "FORM.code" | translate
-            }}</label>
-            <input
-              type="text"
-              class="form-control"
-              id="code"
-              formControlName="code"
-              [placeholder]="'FORM.code' | translate"
-            />
-            <div
-              *ngIf="
-                formForm.controls['code'].invalid &&
-                formForm.controls['code'].touched
-              "
-              class="text-danger"
-            >
-              {{ "FORM.campo_obligatorio" | translate }}
-            </div>
-          </div>
-
-          <button type="submit" class="btn btn-primary">
-            {{ "FORM.added" | translate }}
-          </button>
-          <button
-            type="button"
-            class="btn btn-light"
-            (click)="modal.close('Close click')"
-          >
-            {{ "FORM.close" | translate }}
-          </button>
-        </form>
+        <app-formulario
+          *ngIf="currentAction === 'add'"
+          [action]="'add'"
+          (formSubmit)="handleFormSubmit($event)"
+          [formConfig]="currentFormConfig"
+        >
+        </app-formulario>
       </ng-container>
-
       <ng-container *ngIf="currentAction === 'edit'">
         <!--FORMULARI MODIFICAR -->
-        <form [formGroup]="formForm" (ngSubmit)="onSubmit()">
-          <input type="hidden" id="id" formControlName="id" />
-
-          <div class="mb-3">
-            <label for="name" class="form-label">
-              {{ "FORM.name" | translate }}</label
-            >
-            <input
-              type="text"
-              class="form-control"
-              id="name"
-              formControlName="name"
-              [placeholder]="'FORM.name' | translate"
-            />
-            <div
-              *ngIf="
-                formForm.controls['name'].invalid &&
-                formForm.controls['name'].touched
-              "
-              class="text-danger"
-            >
-              {{ "FORM.campo_obligatorio" | translate }}
-            </div>
-          </div>
-
-          <div class="mb-3">
-            <label for="code" class="form-label">{{
-              "FORM.code" | translate
-            }}</label>
-            <input
-              type="text"
-              class="form-control"
-              id="code"
-              formControlName="code"
-              [placeholder]="'FORM.code' | translate"
-            />
-            <div
-              *ngIf="
-                formForm.controls['code'].invalid &&
-                formForm.controls['code'].touched
-              "
-              class="text-danger"
-            >
-              {{ "FORM.campo_obligatorio" | translate }}
-            </div>
-          </div>
-
-          <button type="submit" class="btn btn-primary">
-            {{ "FORM.modify" | translate }}
-          </button>
-          <button
-            type="button"
-            class="btn btn-light"
-            (click)="modal.close('Close click')"
-          >
-            {{ "FORM.close" | translate }}
-          </button>
-        </form>
+        <app-formulario
+          *ngIf="currentAction === 'edit'"
+          [selectedRegister]="selectedRegister"
+          [action]="'edit'"
+          (formSubmit)="handleFormSubmit($event)"
+          [formConfig]="currentFormConfig"
+        >
+        </app-formulario>
       </ng-container>
     </div>
   </ng-template>

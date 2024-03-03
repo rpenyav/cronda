@@ -40,6 +40,7 @@ import { ProvincesDetailComponent } from './pages/provinces/provinces-detail.com
 import { BanksDetailComponent } from './pages/banks/banks-detail.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { FilterInputComponent } from './shared/filter-input/filter-input.component';
+import { FormularioComponent } from './shared/formulario/formulario.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -81,6 +82,7 @@ function initApp() {
     BanksDetailComponent,
     SettingsComponent,
     FilterInputComponent,
+    FormularioComponent,
   ],
   imports: [
     BrowserModule,
