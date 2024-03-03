@@ -104,7 +104,6 @@ export class BanksComponent implements OnInit {
       .getRegisterTypes<PaginatedResponse>(this.ENDPOINT)
       .subscribe({
         next: (data: PaginatedResponse) => {
-          console.log('allDatAll', this.allDatAll);
           this.allDatAll = data.list;
         },
         error: (error) => console.error(error),
@@ -120,7 +119,6 @@ export class BanksComponent implements OnInit {
       )
       .subscribe({
         next: (data: PaginatedResponse) => {
-          console.log('allDatAll', this.allDatAll);
           this.banksData = data.list;
           this.allDatAll = data.allData;
           this.filteredRegistersData = [...this.banksData];
